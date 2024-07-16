@@ -6,10 +6,10 @@
 
 ## Functional Requirements
 
-1. User Management
+1. User Management  
    Register, Login, (Authentication, Forget Password)
 
-2. Todos Management
+2. Todos Management  
    CRUD Todos
 
 ## Database
