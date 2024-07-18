@@ -13,10 +13,11 @@
   <body>
     <div class="container">
       <div class="col-md-6">
+        <h1>Add a new Todo Item</h1>
         <form
           action="#"
-          th:action="@{/todo/{id}(id=${todo.id})}"
-          th:object="${todo}"
+          th:action="@{/todo}"
+          th:object="${todoItem}"
           method="POST"
         >
           <div class="form-group">
@@ -26,41 +27,26 @@
               type="text"
               th:field="*{description}"
               id="description"
-              placeholder="Add a description"
+              placeholder="Description"
             />
-
             <div th:if="${#fields.hasErrors('description')}">
               <p th:errors="*{description}" class="error">Description Error</p>
             </div>
             <div th:if="${#fields.hasErrors('deadline')}">
               <p th:errors="*{deadline}" class="error">Deadline Error</p>
             </div>
-
-            <label for="deadline">Deadline</label>
-            <input
-              type="datetime-local"
-              id="deadline"
-              th:field="*{deadline}"
-              class="form-control"
-            />
-            <p>Deadline value: [[${todo.deadline}]]</p>
-          </div>
-          <div class="checkbox">
-            <label>
+            <div class="form-group">
+              <label for="deadline">Deadline</label>
               <input
-                type="checkbox"
-                th:checked="${complete} == true"
-                th:field="*{complete}"
-                id="complete"
+                type="datetime-local"
+                id="deadline"
+                th:field="*{deadline}"
+                class="form-control"
               />
-              Complete
-            </label>
+            </div>
           </div>
 
-          <button class="btn btn-default" type="submit">Update</button>
-
-          <input type="hidden" th:field="*{createdDate}" />
-          <input type="hidden" th:field="*{modifiedDate}" />
+          <button type="submit" class="btn btn-success">Add Todo!</button>
         </form>
       </div>
     </div>

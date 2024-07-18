@@ -1,12 +1,16 @@
 package com.example.TodoList.models;
 
 import java.time.Instant;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,13 +18,14 @@ import lombok.Setter;
 @Table(name = "todo_item")
 public class TodoItem {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     @Getter
     @Setter
     private Long id;
 
     @Getter
     @Setter
+    @NotBlank(message="Description is required")
     private String description;
 
     @Getter
@@ -35,9 +40,12 @@ public class TodoItem {
     @Setter
     private Instant modifiedDate;
 
-    public TodoItem(){
+    @Getter
+    @Setter
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private Date deadline;
 
-    }
+    public TodoItem(){}
 
     public TodoItem(String description){
         this.description = description;
@@ -48,7 +56,7 @@ public class TodoItem {
 
     @Override
     public String toString() {
-        return String.format("TodoItem{id=%d, description='%s', complete='%s', createdDate='%s', modifiedDate='%s'}",
-        id, description, complete, createdDate, modifiedDate);
+        return String.format("TodoItem{id=%d, description='%s', complete='%s', createdDate='%s', modifiedDate='%s', deadline='%s'}",
+        id, description, complete, createdDate, modifiedDate, deadline);
     }
 }
