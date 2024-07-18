@@ -25,7 +25,11 @@ public class TodoItem {
 
     @Getter
     @Setter
-    @NotBlank(message="Description is required")
+    @NotBlank(message="Title is required")
+    private String title;
+
+    @Getter
+    @Setter
     private String description;
 
     @Getter
@@ -47,8 +51,8 @@ public class TodoItem {
 
     public TodoItem(){}
 
-    public TodoItem(String description){
-        this.description = description;
+    public TodoItem(String title){
+        this.title = title;
         this.complete = false;
         this.createdDate = Instant.now();
         this.modifiedDate = Instant.now();
@@ -56,7 +60,7 @@ public class TodoItem {
 
     @Override
     public String toString() {
-        return String.format("TodoItem{id=%d, description='%s', complete='%s', createdDate='%s', modifiedDate='%s', deadline='%s'}",
-        id, description, complete, createdDate, modifiedDate, deadline);
+        return String.format("TodoItem{id=%d, title='%s', description='%s', complete='%s', createdDate='%s', modifiedDate='%s', deadline='%s'}",
+        id, title, description, complete, createdDate, modifiedDate, deadline);
     }
 }

@@ -15,7 +15,9 @@ The `Todo` table lists the tasks assigned to users. It has the following fields:
 
 - **TaskID** (int): The unique identifier for each task, auto-incremented.
 - **UserID** (int): A foreign key that references `User_id` in the `User` table, linking each task to a user.
+- **Completed** (boolean): Whether this task is compeleted or not.
 - **Title** (varchar): The title of the task.
 - **Description** (text): A detailed description of the task.
-- **DueDate** (date): The deadline for completing the task.
-- **Status** (varchar): The current status of the task (e.g., pending, completed).
+- **CreatedDate** (date): The time for user create this task.
+- **ModifiedDate** (date): The last time user modify this task.
+- **Deadline** (date): The deadline for completing the task.

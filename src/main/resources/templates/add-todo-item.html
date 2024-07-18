@@ -21,17 +21,25 @@
           method="POST"
         >
           <div class="form-group">
+            <label for="title">Title</label>
+            <input
+              class="form-control"
+              type="text"
+              th:field="*{title}"
+              id="title"
+              placeholder="Title"
+            />
+            <div th:if="${#fields.hasErrors('title')}">
+              <p th:errors="*{title}" class="error">Title Error</p>
+            </div>
             <label for="description">Description</label>
             <input
               class="form-control"
               type="text"
               th:field="*{description}"
               id="description"
-              placeholder="Description"
+              placeholder="Add a description"
             />
-            <div th:if="${#fields.hasErrors('description')}">
-              <p th:errors="*{description}" class="error">Description Error</p>
-            </div>
             <div th:if="${#fields.hasErrors('deadline')}">
               <p th:errors="*{deadline}" class="error">Deadline Error</p>
             </div>

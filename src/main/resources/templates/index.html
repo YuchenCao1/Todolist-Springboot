@@ -18,10 +18,9 @@
         <thead>
           <tr>
             <th>Actions</th>
+            <th>Title</th>
             <th>Description</th>
             <th>Complete</th>
-            <th>Created Date</th>
-            <th>Modified Date</th>
             <th>Deadline</th>
           </tr>
         </thead>
@@ -42,18 +41,9 @@
                 >
               </div>
             </td>
+            <td th:text="${item.title}">item_title</td>
             <td th:text="${item.description}">item_description</td>
             <td th:text="${item.complete}">item_complete</td>
-            <td
-              th:text="${#temporals.format(item.createdDate, 'yyyy-MM-dd HH:mm:ss')}"
-            >
-              item_created_date
-            </td>
-            <td
-              th:text="${#temporals.format(item.modifiedDate, 'yyyy-MM-dd HH:mm:ss')}"
-            >
-              item_modified_date
-            </td>
             <td
               th:text="${item.deadline != null ? #dates.format(item.deadline, 'yyyy-MM-dd HH:mm:ss') : 'N/A'}"
             >
