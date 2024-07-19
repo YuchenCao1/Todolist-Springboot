@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      th:rel="stylesheet"
+      th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css} "
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="col-md-6">
+        <h1>Register</h1>
+        <div th:if="${registerError}" class="alert alert-danger">
+          <p th:text="${registerError}">Invalid register attempt</p>
+        </div>
+        <form
+          action="#"
+          th:action="@{/registering}"
+          th:object="${user}"
+          method="POST"
+        >
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              class="form-control"
+              type="text"
+              th:field="*{username}"
+              id="username"
+              placeholder="Username"
+            />
+            <div th:if="${#fields.hasErrors('username')}">
+              <p th:errors="*{username}" class="error">Username Error</p>
+            </div>
+            <label for="password">Password</label>
+            <input
+              class="form-control"
+              type="password"
+              th:field="*{password}"
+              id="password"
+              placeholder="Add a Password"
+            />
+            <div th:if="${#fields.hasErrors('password')}">
+              <p th:errors="*{password}" class="error">Password Error</p>
+            </div>
+            <label for="email">Email</label>
+            <input
+              class="form-control"
+              type="text"
+              th:field="*{email}"
+              id="email"
+              placeholder="Add a Email"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-success">Register</button>
+        </form>
+        <div>
+          <p>
+            <a
+              class="btn btn-success"
+              style="margin-top: 12px"
+              href="/user-login"
+              >Login</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

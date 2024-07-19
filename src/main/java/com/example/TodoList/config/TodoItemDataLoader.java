@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.example.TodoList.models.TodoItem;
 import com.example.TodoList.repositories.TodoItemRepository;
 
 @Component
@@ -23,13 +22,6 @@ public class TodoItemDataLoader implements CommandLineRunner{
     }
 
     private void loadSeedData(){
-        if(todoItemRepository.count() == 0){
-            TodoItem todoItem1 = new TodoItem("get the milk");
-            TodoItem todoItem2 = new TodoItem("rake the leaves");
-        
-            todoItemRepository.save(todoItem1);
-            todoItemRepository.save(todoItem2);
-        }
         logger.info("Number of TodoItems: {}", todoItemRepository.count());
     }
 }

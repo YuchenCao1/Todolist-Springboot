@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -49,18 +51,17 @@ public class TodoItem {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date deadline;
 
-    public TodoItem(){}
+    @Getter
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public TodoItem(String title){
-        this.title = title;
-        this.complete = false;
-        this.createdDate = Instant.now();
-        this.modifiedDate = Instant.now();
-    }
+    public TodoItem(){}
 
     @Override
     public String toString() {
-        return String.format("TodoItem{id=%d, title='%s', description='%s', complete='%s', createdDate='%s', modifiedDate='%s', deadline='%s'}",
-        id, title, description, complete, createdDate, modifiedDate, deadline);
+        return String.format("TodoItem{id=%d, title='%s', description='%s', complete='%s', createdDate='%s', modifiedDate='%s', deadline='%s', user_id='%s'}",
+        id, title, description, complete, createdDate, modifiedDate, deadline, user != null ? user.getId() : null);
     }
 }
