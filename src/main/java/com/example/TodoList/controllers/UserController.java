@@ -1,5 +1,7 @@
 package com.example.TodoList.controllers;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -39,7 +41,7 @@ public class UserController {
 
         Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
         if (existingUser.isPresent()) {
-            if(existingUser.get().getPassword().equals(user.getPassword())){
+            if(existingUser.get().getPassword().equals(hashPassword(user.getPassword()))){
                 request.getSession().setAttribute("user", existingUser.get().getId());
                 return "redirect:/"; 
             }
@@ -72,6 +74,8 @@ public class UserController {
             return "register"; 
         }
         else{
+            String hashedPassword = hashPassword(user.getPassword());
+            user.setPassword(hashedPassword);
             userRepository.save(user);
             return "redirect:/";
         }
@@ -117,9 +121,27 @@ public class UserController {
         }
 
         User updateUser = existingUser.get();
-        updateUser.setPassword(user.getPassword());
+        updateUser.setPassword(hashPassword(user.getPassword()));
         userRepository.save(updateUser);
         return "redirect:/user-login";
         }
+
+    private String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(password.getBytes());
+            byte[] byteData = md.digest();
+
+            StringBuilder hexString = new StringBuilder();
+            for (int i = 0; i < byteData.length; i++) {
+                String hex = Integer.toHexString(0xff & byteData[i]);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error hashing password", e);
+        }
+    }
 }
 
